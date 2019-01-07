@@ -1,4 +1,4 @@
-#! /usr/bin/python
+#! /usr/bin/python2
 
 #from subprocess import call
 import subprocess
@@ -114,12 +114,16 @@ def getdu(path, level):
 	arg = cmd.split()
 	arg = arg + greturn
 
-#execute the command
-	proc = subprocess.Popen(arg,stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+	try:
+    #execute the command
+		proc = subprocess.Popen(arg,stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
-#get the output
-	result, _ = proc.communicate()
-#	print result
+    #get the output
+		result, _ = proc.communicate()
+    #	print result
+	except OSError as e:
+		print e
+		result, _ = ("", "")
 
 #string save the block to text to an array of strings
 	matrix = [s.split() for s in result.splitlines()]
